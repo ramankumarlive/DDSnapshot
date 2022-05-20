@@ -11,6 +11,14 @@
         "type": "string",
         "defaultValue": "Premium_LRS"
       },
+      "targetDiskName": {
+        "type": "string",
+        "defaultValue": "myTargetDisk"
+      },
+      "targetDiskSkuName": {
+        "type": "string",
+        "defaultValue": "UltraSSD_LRS"
+      },
       "diskSizeInGB": {
           "defaultValue": 128,
           "type": "Int",
