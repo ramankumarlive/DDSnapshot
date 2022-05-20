@@ -36,7 +36,14 @@
             "metadata": {
                 "description": "The name of the stamp where the target disk will be pinned to."
             }
-        }
+        },
+        "marketPlaceImageId": {
+            "type": "String",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The ID of a marketplace image that will be used to create the source disk"
+            }
+        }  
     },
     "resources": [
         {
@@ -52,7 +59,7 @@
                 "creationData": {
                      "createOption": "FromImage",
                      "imageReference": {
-                                  "id": "[variable('marketPlaceImageId')]"
+                                  "id": "[parameters('marketPlaceImageId')]"
                                 }
              },
             "diskSizeGB": "[parameters('diskSizeInGB')]"
