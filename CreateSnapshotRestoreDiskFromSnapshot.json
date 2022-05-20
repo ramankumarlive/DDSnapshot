@@ -48,7 +48,7 @@
     "resources": [
         {
         "type": "Microsoft.Compute/disks",
-            "apiVersion": "2021-12-01",
+            "apiVersion": "2022-03-02",
             "name": "[parameters('sourceDiskName')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -67,7 +67,7 @@
       },
       {
       "type": "Microsoft.Compute/snapshots",
-      "apiVersion": "2021-12-01",
+      "apiVersion": "2022-03-02",
       "name": "[concat(parameters('sourceDiskName'), '_snapshot')]",
       "location": "[parameters('location')]",
       "tags": {},
@@ -84,7 +84,7 @@
       },
       {
         "type": "Microsoft.Compute/disks",
-        "apiVersion": "2021-12-01",
+        "apiVersion": "2022-03-02",
         "name": "[parameters('targetDiskName')]",
         "location": "[parameters('location')]",
         "sku": {
