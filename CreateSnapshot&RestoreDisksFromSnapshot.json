@@ -1,0 +1,78 @@
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "sourceDiskName": {
+        "type": "string",
+        "defaultValue": "mysourceDisk"
+      },
+      "sourceDiskSkuName": {
+        "type": "string",
+        "defaultValue": "Premium_LRS"
+      },
+      "diskSizeInGB": {
+          "defaultValue": 128,
+          "type": "Int",
+          "metadata": {
+              "description": "Data Disk size in GiB."
+          }
+      },
+      "location":{  
+       "type":"string",
+       "defaultValue":"USEast2EUAP"
+        }
+    },
+    "resources": [
+        {
+        "type": "Microsoft.Compute/disks",
+            "apiVersion": "2021-12-01",
+            "name": "[parameters('sourceDiskName')]",
+            "location": "[parameters('location')]"
+            "sku": {
+                "name": "[parameters('sourceDiskSKU')]"
+            },
+            "properties": {
+                "osType": "Windows",
+                "creationData": {
+                     "createOption": "FromImage",
+                     "imageReference": {
+                                  "id": "[variable('marketPlaceImageId')]"
+                                }
+             },
+            "diskSizeGB": "[parameters('diskSizeInGB')]"
+      },
+      {
+      "type": "Microsoft.Compute/snapshots",
+      "apiVersion": "2021-12-01",
+      "name": "[concat(parameters('sourceDiskName'), '_snapshot')]",
+      "location": "[parameters('location')]",
+      "tags": {},
+      "dependsOn": [
+                "[concat('Microsoft.Compute/disks/', parameters('sourceDiskName'))]"
+            ],
+      "properties": {
+        "creationData": {
+          "createOption": "Copy",
+          "sourceResourceId": "[resourceId('Microsoft.Compute/disks', parameters('sourceDiskName'))]"
+        },
+        "incremental": "true"
+      },
+      {
+        "type": "Microsoft.Compute/disks",
+            "apiVersion": "2021-12-01",
+            "name": "[parameters('targetDiskName')]",
+            "location": "[parameters('location')]"
+            "sku": {
+                "name": "[parameters('targetDiskSKU')]"
+            },
+            "properties": {
+                "creationData": {
+                     "createOption": "Copy",
+                      "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
+             },
+            "diskSizeGB": "[parameters('diskSizeInGB')]"
+        }
+      }
+    ]
+  }
