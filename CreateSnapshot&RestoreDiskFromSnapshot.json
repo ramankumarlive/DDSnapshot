@@ -35,7 +35,7 @@
         "type": "Microsoft.Compute/disks",
             "apiVersion": "2021-12-01",
             "name": "[parameters('sourceDiskName')]",
-            "location": "[parameters('location')]"
+            "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('sourceDiskSKU')]"
             },
@@ -48,6 +48,7 @@
                                 }
              },
             "diskSizeGB": "[parameters('diskSizeInGB')]"
+            }
       },
       {
       "type": "Microsoft.Compute/snapshots",
@@ -64,25 +65,26 @@
           "sourceResourceId": "[resourceId('Microsoft.Compute/disks', parameters('sourceDiskName'))]"
         },
         "incremental": "true"
+      }
       },
       {
         "type": "Microsoft.Compute/disks",
-            "apiVersion": "2021-12-01",
-            "name": "[parameters('targetDiskName')]",
-            "location": "[parameters('location')]"
-            "sku": {
-                "name": "[parameters('targetDiskSKU')]"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
-            ],
-            "properties": {
-                "creationData": {
-                     "createOption": "Copy",
-                     "StorageStampName": "[parameters('targetDiskStampName')]",
-                      "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
-             },
-            "diskSizeGB": "[parameters('diskSizeInGB')]"
+        "apiVersion": "2021-12-01",
+        "name": "[parameters('targetDiskName')]",
+        "location": "[parameters('location')]",
+        "sku": {
+            "name": "[parameters('targetDiskSKU')]"
+        },
+        "dependsOn": [
+            "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
+        ],
+        "properties": {
+            "creationData": {
+                 "createOption": "Copy",
+                 "StorageStampName": "[parameters('targetDiskStampName')]",
+                  "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
+         },
+        "diskSizeGB": "[parameters('diskSizeInGB')]"
         }
       }
     ]
