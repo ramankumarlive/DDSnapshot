@@ -7,7 +7,7 @@
         "type": "string",
         "defaultValue": "mysourceDisk"
       },
-      "sourceDiskSkuName": {
+      "sourceDiskSku": {
         "type": "string",
         "defaultValue": "Premium_LRS"
       },
@@ -15,7 +15,7 @@
         "type": "string",
         "defaultValue": "myTargetDisk"
       },
-      "targetDiskSkuName": {
+      "targetDiskSku": {
         "type": "string",
         "defaultValue": "UltraSSD_LRS"
       },
