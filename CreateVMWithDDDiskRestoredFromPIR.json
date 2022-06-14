@@ -400,14 +400,13 @@
                     },
                     "dataDisks": [
                       {
-                        "name": "[concat(parameters('virtualMachineName'),'-dataDisk0']",
+                        "name": "[variables('dataDiskName')]",
                         "lun": "0",
                         "createOption": "attach",
                         "managedDisk": {
-                                    "id": "[resourceId('Microsoft.Compute/disks/', concat(parameters('virtualMachineName'),'-dataDisk',copyIndex('dataDisks')))]"
+                                    "id": "[resourceId('Microsoft.Compute/disks/', variables('dataDiskName'))]"
                                 }
-                        }
-                      }
+                       }
                     ]
                 },
                 "networkProfile": {
