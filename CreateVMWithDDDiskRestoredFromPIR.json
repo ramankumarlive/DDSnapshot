@@ -335,7 +335,6 @@
                         }
                     }
                 ],
-                "enableAcceleratedNetworking": "[parameters('useAcceleratedNetworking')]",
                 "networkSecurityGroup":{
                     "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups/', variables('nsgName')))]"
                 }
