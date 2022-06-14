@@ -264,7 +264,9 @@
                  "StorageStampName": "[parameters('dataDiskStampName')]",
                  "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', variables('sourceSnapshotName'))]"
          },
-        "diskSizeGB": "[parameters('dataDiskSizeInGB')]"
+        "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
+        "diskIOPSReadWrite": "[parameters('dataDiskIOPSReadWrite')]",
+        "diskMBpsReadWrite": "[parameters('dataDiskMBpsReadWrite')]"
         }
       },
         {
