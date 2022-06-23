@@ -6,8 +6,7 @@
             "defaultValue": "2022-03-02",
             "type": "String"
         },
-        "name": {
-            "defaultValue": "testsnapshot1",
+        "snapshotName": {
             "type": "String"
         },
         "location": {
@@ -17,23 +16,15 @@
                 "description": "Location for all resources."
             }
         },
-        "createOption": {
-            "defaultValue": "Copy",
-            "type": "String"
-        },
         "sourceUri": {
             "defaultValue": "/subscriptions/83f51a68-e37f-4d9c-9583-ef4d0ba8a9b3/resourceGroups/cbn14a-ss-traffic/providers/Microsoft.Compute/disks/ss-4k-test-1-dataDisk0",
             "type": "String"
-        },
-        "incremental": {
-            "defaultValue": true,
-            "type": "Bool"
         }
     },
     "resources": [
         {
             "type": "Microsoft.Compute/snapshots",
-            "apiVersion": "[parameters('apiVersion')]",
+            "apiVersion": "2022-03-02",
             "name": "[parameters('name')]",
             "location": "[parameters('location')]",
             "tags": {},
@@ -42,7 +33,7 @@
                     "createOption": "[parameters('createOption')]",
                     "sourceResourceId": "[parameters('sourceUri')]"
                 },
-                "incremental": "[parameters('incremental')]"
+                "incremental": "true"
             }
         }
     ]
