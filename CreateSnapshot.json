@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiVersion": {
+            "defaultValue": "2022-03-02",
+            "type": "String"
+        },
+        "name": {
+            "defaultValue": "testsnapshot1",
+            "type": "String"
+        },
+        "location": {
+            "defaultValue": "eastus2euap",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "createOption": {
+            "defaultValue": "Copy",
+            "type": "String"
+        },
+        "sourceUri": {
+            "defaultValue": "/subscriptions/83f51a68-e37f-4d9c-9583-ef4d0ba8a9b3/resourceGroups/cbn14a-ss-traffic/providers/Microsoft.Compute/disks/ss-4k-test-1-dataDisk0",
+            "type": "String"
+        },
+        "incremental": {
+            "defaultValue": "true",
+            "type": "Bool"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/snapshots",
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "properties": {
+                "creationData": {
+                    "createOption": "[parameters('createOption')]",
+                    "sourceResourceId": "[parameters('sourceUri')]"
+                },
+                "incremental": "[parameters('incremental')]"
+            }
+        }
+    ]
+}
