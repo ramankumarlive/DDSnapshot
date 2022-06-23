@@ -21,12 +21,12 @@
         {
             "type": "Microsoft.Compute/snapshots",
             "apiVersion": "2022-03-02",
-            "name": "[parameters('name')]",
+            "name": "[parameters('snapshotName')]",
             "location": "[parameters('location')]",
             "tags": {},
             "properties": {
                 "creationData": {
-                    "createOption": "[parameters('createOption')]",
+                    "createOption": "Copy",
                     "sourceResourceId": "[parameters('sourceUri')]"
                 },
                 "incremental": "true"
