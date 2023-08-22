@@ -30,13 +30,6 @@
        "type":"string",
        "defaultValue":"USEast2EUAP"
         },
-        "targetDiskStampName": {
-            "type": "String",
-            "defaultValue": "CBN14PrdSDF01A",
-            "metadata": {
-                "description": "The name of the stamp where the target disk will be pinned to."
-            }
-        },
         "marketPlaceImageId": {
             "type": "String",
             "defaultValue": "",
@@ -96,7 +89,6 @@
         "properties": {
             "creationData": {
                  "createOption": "Copy",
-                 "StorageStampName": "[parameters('targetDiskStampName')]",
                   "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
          },
         "diskSizeGB": "[parameters('diskSizeInGB')]"
