@@ -3,28 +3,9 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "sourceDiskName": {
+      "snapshotName": {
         "type": "string",
-        "defaultValue": "mysourceDisk"
-      },
-      "sourceDiskSku": {
-        "type": "string",
-        "defaultValue": "Premium_LRS"
-      },
-      "targetDiskName": {
-        "type": "string",
-        "defaultValue": "myTargetDisk"
-      },
-      "targetDiskSku": {
-        "type": "string",
-        "defaultValue": "UltraSSD_LRS"
-      },
-      "diskSizeInGB": {
-          "defaultValue": 128,
-          "type": "Int",
-          "metadata": {
-              "description": "Data Disk size in GiB."
-          }
+        "defaultValue": "mySnapshot"
       },
       "location":{  
        "type":"string",
@@ -42,7 +23,7 @@
         {
         "type": "Microsoft.Compute/disks",
             "apiVersion": "2022-03-02",
-            "name": "stagingDisk",
+            "name": "[concat(parameters('snapshotName'),'-stagingDataDisk0')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "Premium_LRS"
@@ -61,38 +42,19 @@
       {
       "type": "Microsoft.Compute/snapshots",
       "apiVersion": "2022-03-02",
-      "name": "[concat(parameters('sourceDiskName'), '_snapshot')]",
+      "name": "[parameters('snapshotName')]",
       "location": "[parameters('location')]",
       "tags": {},
       "dependsOn": [
-                "[concat('Microsoft.Compute/disks/', parameters('sourceDiskName'))]"
+                "[concat('Microsoft.Compute/disks/', concat(parameters('snapshotName'),'-stagingDataDisk0'))]"
             ],
       "properties": {
         "creationData": {
           "createOption": "Copy",
-          "sourceResourceId": "[resourceId('Microsoft.Compute/disks', parameters('sourceDiskName'))]"
+          "sourceResourceId": "[resourceId('Microsoft.Compute/disks', concat(parameters('snapshotName'),'-stagingDataDisk0'))]"
         },
         "incremental": "true"
       }
-      },
-      {
-        "type": "Microsoft.Compute/disks",
-        "apiVersion": "2022-03-02",
-        "name": "[parameters('targetDiskName')]",
-        "location": "[parameters('location')]",
-        "sku": {
-            "name": "[parameters('targetDiskSKU')]"
-        },
-        "dependsOn": [
-            "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
-        ],
-        "properties": {
-            "creationData": {
-                 "createOption": "Copy",
-                  "sourceResourceId": "[resourceId('Microsoft.Compute/snapshots', concat(parameters('sourceDiskName'), '_snapshot'))]"
-         },
-        "diskSizeGB": "[parameters('diskSizeInGB')]"
-        }
       }
     ]
   }
