@@ -75,7 +75,7 @@
             },
             "properties": {
                 "creationData": {
-                    "createOption": "Copy",
+                    "createOption": "Restore",
                     "sourceResourceId": "[parameters('sourceDiskRestorePointARMId')]",
                     "logicalSectorSize": "[parameters('logicalSectorSize')]",
                     "StorageStampName": "[parameters('dataDiskStampName')]"
