@@ -56,9 +56,9 @@
                 "description": "The name of the stamp."
             }
         },
-        "sourceSnapshotARMId": {
+        "sourceDiskRestorePointARMId": {
             "type": "string",
-            "defaultValue": "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/ADAM-CANARY-TEST-RG/providers/Microsoft.Compute/snapshots/Adam-IA-Snapshot-test"
+            "defaultValue": "/subscriptions/{subscription-id}/resourceGroups/myResourceGroup/providers/Microsoft.Compute/restorePointCollections/rpcName/restorePoints/restorePointName/diskRestorePoints/testingexcludedisk_DataDisk_1_68785190-1acb-4d5e-a8ae-705b45f3dca5"
         }
     },
     "resources": [
@@ -76,7 +76,7 @@
             "properties": {
                 "creationData": {
                     "createOption": "Copy",
-                    "sourceResourceId": "[parameters('sourceSnapshotARMId')]",
+                    "sourceResourceId": "[parameters('sourceDiskRestorePointARMId')]",
                     "logicalSectorSize": "[parameters('logicalSectorSize')]",
                     "StorageStampName": "[parameters('dataDiskStampName')]"
                 },
